@@ -153,7 +153,7 @@ import java.io.IOException;
  *  • Ошибочные строки пропускаются и увеличивают счётчик ошибок.
  * Ограничения: без Stream API; использовать BufferedReader.
  */
-public interface CsvProductReader {
+public interface Contracts.CsvProductReader {
     ReadResult<ProductLine> read(String path) throws IOException;
 }
 ```
@@ -172,7 +172,7 @@ import java.util.ArrayList;
  *  5) total = сумма всех finalTotal, также 2 знака, HALF_UP.
  * Ограничения: без Stream API; обход ArrayList через циклы.
  */
-public interface BillCalculator {
+public interface Contracts.BillCalculator {
     BillResult<BillLine> calculate(ArrayList<ProductLine> products);
 }
 ```
@@ -208,9 +208,9 @@ public interface CsvBillWriter {
 
 /**
  * Алгоритм:
- *  1) Прочитать вход: CsvProductReader#read → ReadResult<ProductLine>;
+ *  1) Прочитать вход: Contracts.CsvProductReader#read → ReadResult<ProductLine>;
  *  2) Создать DiscountPolicy (скидка 10% при quantity ≥ 3);
- *  3) Посчитать счёт: BillCalculator#calculate → BillResult<BillLine>;
+ *  3) Посчитать счёт: Contracts.BillCalculator#calculate → BillResult<BillLine>;
  *  4) Записать результат: CsvBillWriter#write (включая TOTAL и ERRORS).
  *
  * Реализация должна:
